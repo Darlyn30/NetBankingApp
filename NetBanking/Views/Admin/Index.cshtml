@@ -1,0 +1,141 @@
+﻿@using NetBanking.Core.Application.Dtos.Account
+@using NetBanking.Core.Application.Dtos.Account.ResponsesCommon
+@using NetBanking.Core.Application.Enums
+@using NetBanking.Core.Application.ViewModels.User;
+@model List<UserViewModel>;
+
+@{
+    ViewData["Title"] = "Manage Users";
+    AuthenticationResponse user = ViewBag.User;
+    Responses response = ViewBag.Response;
+}
+<style>
+    .status {
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <div class="header">
+        <div class="d-flex align-items-center">
+            <img src="./Imgs/logo.jpg" alt="Logo" class="logo me-3">
+            <h1>DigiBank</h1>
+        </div>
+        <a asp-controller="Admin" asp-action="Create" class="btn btn-success">Add new user</a>
+    </div>
+    @if(response.HasError)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+            <p class="mb-0">@response.Error</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model.Count == 0 || Model == null)
+    {
+        <h3 class="text-center">There are not any user</h3>
+    }
+    else
+    {
+                    <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th class="text-center col-1">Role</th>
+                        <th class="text-center col-1">Status</th>
+                        <th class="text-center col-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (UserViewModel userVm in Model)
+                    {
+                        <tr>
+                            <td>@userVm.IdentificationNumber</td>
+                            <td>@userVm.Name</td>
+                            <td>@userVm.LastName</td>
+                            <td>@userVm.Username</td>
+                            <td class="text-center">
+                                @if (userVm.Role == "Admin")
+                                {
+                                    <div class="badge text-bg-light-info text-info">@userVm.Role</div>
+                                }
+                                else
+                                {
+                                    <div class="badge text-bg-light-secondary text-secondary">@userVm.Role</div>
+
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (userVm.IsActive)
+                                {
+                                    <div class="badge text-bg-success" class="status">Active</div>
+                                }
+                                else
+                                {
+                                    <div class="badge text-bg-danger"class="status">Unactive</div>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (userVm.Id != user.Id)
+                                {
+                                    <a asp-controller="Admin" asp-action="Edit" class="btn btn-warning" asp-route-username="@userVm.Username" title="Edit">
+                                        <i class="ti ti-pencil"></i>
+                                    </a>
+
+                                    if (userVm.Role == Roles.Client.ToString())
+                                    {
+                                        <a asp-controller="Admin" asp-action="IndexProducts" class="btn btn-success" asp-route-userId="@userVm.Id" title="Products">
+                                            <i class="ti ti-coin"></i>
+                                        </a>
+                                    }
+
+                                    <a class="btn btn-@(userVm.IsActive ? "danger" : "secondary" )" href="#" data-bs-toggle="modal" data-bs-target="#modal-update-user-status-@userVm.Username" title="@(userVm.IsActive ? " Unactive" : "Active")">
+                                        <i class="ti ti-user-@(userVm.IsActive ? "x" : "plus")"></i>
+                                    </a>
+
+                                    <!-- Modal Update-User-Status -->
+                                    <div class="modal fade" id="modal-update-user-status-@userVm.Username" tabindex="-1" aria-labelledby="modal-update-user-status-@userVm.Username-label" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">@(userVm.IsActive ? "Unactive" : "Active") User: @userVm.Username</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <form method="post" asp-controller="Admin" asp-action="UpdateUserStatus">
+                                                    <div class="modal-body">
+
+                                                        <input type="hidden" name="username" value="@userVm.Username" />
+
+                                                        <div class="mb-3 text-start">
+                                                            <p class="text-center">Are you sure you want to <span class="fw-bolder">@(userVm.IsActive ? "unactive" : "active")</span> this user?</p>
+                                                            <p><span class="fw-bolder">Id: </span>@userVm.IdentificationNumber</p>
+                                                            <p><span class="fw-bolder">Name: </span>@userVm.Name</p>
+                                                            <p><span class="fw-bolder">LastName: </span>@userVm.LastName</p>
+                                                            <p><span class="fw-bolder">Username: </span>@userVm.Username</p>
+                                                            <p><span class="fw-bolder">Role: </span>@userVm.Role</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
+                                                        <button type="submit" class="btn btn-secondary">Yes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>        
+    }
+</div>

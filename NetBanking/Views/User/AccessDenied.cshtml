@@ -1,0 +1,33 @@
+﻿<style>
+    .denied-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+    }
+    .denied-card {
+        max-width: 500px;
+        padding: 2rem;
+        text-align: center;
+    }
+    .error-code {
+        font-size: 5rem;
+        font-weight: bold;
+        color: #dc3545;
+    }
+</style>
+
+
+<div class="denied-container">
+    <div class="card denied-card shadow">
+        <div class="card-body">
+            <div class="error-code">403</div>
+            <h1 class="card-title mt-3">Access Denied</h1>
+            <p class="card-text text-muted mb-4">
+                You don't have permission to access this page or resource.
+            </p>
+            <a asp-controller="User" asp-action="Index" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+</div>

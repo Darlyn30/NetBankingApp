@@ -1,0 +1,29 @@
+﻿@using NetBanking.Core.Domain.Entities
+@model Beneficiary
+@{
+    ViewData["Title"] = "Delete beneficiary";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger text-light">
+                <h4>¿Are you sure you want to delete the account @Model.SavingsAccountId as a beneficiary?</h4>
+                <p> This action cannot be undone.</p>
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-controller="Beneficiary" asp-action="DeleteBeneficiaryPost">
+
+                    <input type="hidden" asp-for="SavingsAccountId" />
+
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a asp-controller="Beneficiary" asp-action="" class="btn btn-primary">Go back</a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

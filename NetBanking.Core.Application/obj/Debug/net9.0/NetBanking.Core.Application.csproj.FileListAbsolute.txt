@@ -1,0 +1,15 @@
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\bin\Debug\net9.0\NetBanking.Core.Application.deps.json
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\bin\Debug\net9.0\NetBanking.Core.Application.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\bin\Debug\net9.0\NetBanking.Core.Application.pdb
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\bin\Debug\net9.0\NetBanking.Core.Domain.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\bin\Debug\net9.0\NetBanking.Core.Domain.pdb
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.csproj.AssemblyReference.cache
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.AssemblyInfoInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.AssemblyInfo.cs
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.csproj.CoreCompileInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanki.744BCE1A.Up2Date
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\refint\NetBanking.Core.Application.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\NetBanking.Core.Application.pdb
+D:\programacion\C#\NetBanking\NetBanking.Core.Application\obj\Debug\net9.0\ref\NetBanking.Core.Application.dll

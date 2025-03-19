@@ -1,0 +1,110 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "NetBanking/1.0.0": {
+        "dependencies": {
+          "NetBanking.Core.Application": "1.0.0",
+          "NetBanking.Core.Domain": "1.0.0",
+          "NetBanking.Infrastructure.Identity": "1.0.0",
+          "NetBanking.Infrastructure.Persistence": "1.0.0",
+          "NetBanking.Infrastructure.Shared": "1.0.0"
+        },
+        "runtime": {
+          "NetBanking.dll": {}
+        }
+      },
+      "NetBanking.Core.Application/1.0.0": {
+        "dependencies": {
+          "NetBanking.Core.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NetBanking.Core.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NetBanking.Core.Domain/1.0.0": {
+        "runtime": {
+          "NetBanking.Core.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NetBanking.Infrastructure.Identity/1.0.0": {
+        "dependencies": {
+          "NetBanking.Core.Application": "1.0.0",
+          "NetBanking.Core.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NetBanking.Infrastructure.Identity.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NetBanking.Infrastructure.Persistence/1.0.0": {
+        "dependencies": {
+          "NetBanking.Core.Application": "1.0.0",
+          "NetBanking.Core.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NetBanking.Infrastructure.Persistence.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NetBanking.Infrastructure.Shared/1.0.0": {
+        "dependencies": {
+          "NetBanking.Core.Application": "1.0.0",
+          "NetBanking.Core.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NetBanking.Infrastructure.Shared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NetBanking/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetBanking.Core.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetBanking.Core.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetBanking.Infrastructure.Identity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetBanking.Infrastructure.Persistence/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetBanking.Infrastructure.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,256 @@
+﻿@using NetBanking.Core.Application.ViewModels.Product
+@model ProductViewModel;
+
+@{
+    ViewData["Title"] = "Client Dashoard";
+
+}
+
+
+<style>
+    /* Estilos personalizados para la vista Home */
+    body {
+        background-color: #f5f7fa; /* Fondo claro para el cuerpo */
+    }
+
+    .container-fluid {
+        padding: 2rem;
+    }
+
+    h1.h2 {
+        font-weight: 700;
+        color: #1e3c72; /* Azul profesional */
+        border-bottom: 2px solid #1e3c72;
+        padding-bottom: 0.5rem;
+        margin-bottom: 2rem !important;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-header {
+        background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 1rem 1.5rem;
+    }
+
+    .accordion-button {
+        background: transparent !important;
+        color: #fff !important;
+        font-weight: 600;
+        font-size: 1.25rem;
+        padding: 0;
+        box-shadow: none !important;
+    }
+
+        .accordion-button:not(.collapsed) {
+            background: transparent !important;
+            color: #fff !important;
+        }
+
+        .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        .accordion-button i {
+            margin-right: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    h3.text-center {
+        color: #6c757d;
+        font-weight: 500;
+        margin: 2rem 0;
+    }
+
+    .table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+            padding: 1rem;
+        }
+
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f1f3f5;
+            }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6;
+        }
+</style>
+
+
+<div class="container-fluid">
+    <div>
+        <div class="d-flex justify-content-between mb-1">
+            <h1 class="h2 mb-3">@ViewData["Title"]</h1>
+        </div>
+
+        <div class="">
+            @if ((Model.SavingsAccounts.Count == 0 && Model.CreditCards.Count == 0 && Model.Loans.Count == 0) || Model == null)
+            {
+                <h3 class="text-center">This user doesn't have any product</h3>
+            }
+            else
+            {
+                <section>
+                    <div class="card shadow rounded">
+                        <h2 class="card-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-savings-account" aria-expanded="false" aria-controls="collapse-savings-account">
+                                <i class="bi bi-piggy-bank"></i>
+                                Savings Accounts
+                            </button>
+                        </h2>
+                        <!--Savings Account-->
+                        <div id="collapse-savings-account" class="collapse">
+                            <div class="card-body">
+                                @if (!Model.SavingsAccounts.Any())
+                                {
+                                    <h3 class="text-center">This user doesn't have any savings account.</h3>
+                                }
+                                else
+                                {
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Balance</th>
+                                                <th>DateCreated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var savingsAccount in Model.SavingsAccounts)
+                                            {
+                                                <tr>
+                                                    <td>@savingsAccount.Id</td>
+                                                    <td>@savingsAccount.Balance</td>
+                                                    <td>@savingsAccount.DateCreated</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!--Credit Card-->
+                    <div class="card shadow rounded">
+                        <h2 class="card-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-credit-card" aria-expanded="false" aria-controls="collapse-credit-card">
+                                <i class="bi bi-credit-card me-2"></i>
+                                Credit Cards
+                            </button>
+                        </h2>
+                        <div id="collapse-credit-card" class="collapse">
+                            <div class="card-body">
+                                @if (!Model.CreditCards.Any())
+                                {
+                                    <h3 class="text-center">This user doesn't have any credit card.</h3>
+                                }
+                                else
+                                {
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Limit</th>
+                                                <th>Balance</th>
+                                                <th>Debt</th>
+                                                <th>DateCreated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var creditCard in Model.CreditCards)
+                                            {
+                                                <tr>
+                                                    <td>@creditCard.Id</td>
+                                                    <td>@creditCard.Limit</td>
+                                                    <td>@creditCard.Balance</td>
+                                                    <td>@creditCard.Debit</td>
+                                                    <td>@creditCard.DateCreated</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!--Loan-->
+                    <div class="card shadow rounded">
+                        <h2 class="card-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-loans" aria-expanded="false" aria-controls="collapse-loans">
+                                <i class="bi bi-credit-card me-2"></i>
+                                Loans
+                            </button>
+                        </h2>
+                        <div id="collapse-loans" class="collapse">
+                            <div class="card-body">
+                                @if (!Model.Loans.Any())
+                                {
+                                    <h3 class="text-center">This user doesn't have any loan.</h3>
+                                }
+                                else
+                                {
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Amount</th>
+                                                <th>Balance</th>
+                                                <th>DateCreated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var loan in Model.Loans)
+                                            {
+                                                <tr>
+                                                    <td>@loan.Id</td>
+                                                    <td>@loan.Amount</td>
+                                                    <td>@loan.Balance</td>
+                                                    <td>@loan.DateCreated</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            }
+        </div>
+    </div>
+</div>

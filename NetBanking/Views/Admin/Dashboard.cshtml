@@ -1,0 +1,243 @@
+﻿@using WebApp.NetBanking.Models
+@model AdminDataViewModel
+@{
+	ViewData["Title"] = "Admin dashboard";
+}
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #eee;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .stat i {
+        font-size: 1.5rem;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 150px;
+        width: 150px;
+        margin: 0 auto;
+    }
+</style>
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Total of Clients Registered -->
+        <div class="col-12 col-md-6 col-xxl-3 d-flex mb-3">
+            <div class="card flex-fill w-100">
+                <div class="card-header text-center">
+                    <h5 class="card-title mb-0">Total of Clients Registered</h5>
+                </div>
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <div class="chart-container">
+                            <canvas id="chartjs-dashboard-pie"></canvas>
+                        </div>
+                        <table class="table table-sm mb-0 mt-3">
+                            <tbody>
+                                <tr>
+                                    <td>Active users</td>
+                                    <td class="text-end">@Model.TotalActiveUsers</td>
+                                </tr>
+                                <tr>
+                                    <td>Inactive users</td>
+                                    <td class="text-end">@Model.TotalInactiveUsers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Assigned to Clients -->
+        <div class="col-md-6 col-xl-4 col-xxl-3 d-flex mb-3">
+            <div class="card flex-fill w-100">
+                <div class="card-header text-center">
+                    <h5 class="card-title mb-0">Products Assigned to Clients</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="chartjs-pie"></canvas>
+                    </div>
+                </div>
+                <table class="table table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td>Credit cards</td>
+                            <td class="text-end">@Model.TotalCreditCards</td>
+                        </tr>
+                        <tr>
+                            <td>Loans</td>
+                            <td class="text-end">@Model.TotalLoans</td>
+                        </tr>
+                        <tr>
+                            <td>Savings accounts</td>
+                            <td class="text-end">@Model.TotalSavingsAccounts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Transactions and Payments -->
+        <div class="col-xl-6 col-xxl-6 d-flex mb-3">
+            <div class="w-100">
+                <div class="row">
+                    <div class="col-sm-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Transactions</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="bi bi-credit-card"></i> <!-- Usando Bootstrap Icons -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">@Model.TotalTodayTransactions</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">Total of transactions since the beginning of the day.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Payments</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="bi bi-currency-dollar"></i> <!-- Usando Bootstrap Icons -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">@Model.TotalTodayPayments</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">Total of payments since the beginning of the day.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Historical Transactions</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="bi bi-credit-card"></i> <!-- Usando Bootstrap Icons -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">@Model.TotalTransactions</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">Total of transactions since the system was created.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Historical Payments</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="bi bi-currency-dollar"></i> <!-- Usando Bootstrap Icons -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">@Model.TotalPayments</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">Total of payments since the system was created.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<!-- Chart.js Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Chart(document.getElementById("chartjs-dashboard-pie"), {
+            type: "pie",
+            data: {
+                labels: ["Active", "Inactive"],
+                datasets: [{
+                    data: [@Model.TotalActiveUsers, @Model.TotalInactiveUsers],
+                    backgroundColor: [
+                        "#007bff", // Primary (Active)
+                        "#dc3545"  // Danger (Inactive)
+                    ],
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 75
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        new Chart(document.getElementById("chartjs-pie"), {
+            type: "pie",
+            data: {
+                labels: ["Credit Cards", "Loans", "Savings Accounts"],
+                datasets: [{
+                    data: [@Model.TotalCreditCards, @Model.TotalLoans, @Model.TotalSavingsAccounts],
+                    backgroundColor: [
+                        "#007bff", // Primary
+                        "#ffc107", // Warning
+                        "#dc3545"  // Danger
+                    ],
+                    borderColor: "transparent"
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,299 @@
+﻿@using NetBanking.Core.Application.Enums
+@using NetBanking.Core.Application.ViewModels.User
+@model SaveUserViewModel;
+
+@{
+    bool editMode = String.IsNullOrWhiteSpace(Model.Id) ? false : true;
+    ViewData["Title"] = editMode ? "Edit User" : "New User";
+}
+
+<!-- Montserrat Font -->
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap'>
+<style>
+    body {
+        background-color: #f5f7fa; /* Fondo claro */
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .container-fluid {
+        padding: 0 15px;
+        margin-top: 80px;
+        min-height: calc(100vh - 80px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col-12.col-md-8 {
+        max-width: 700px; /* Ajuste para un formulario más ancho */
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        background: #fff;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .text-center.mb-4 {
+        margin-bottom: 2rem !important;
+    }
+
+    .logo {
+        max-width: 100px; /* Ajuste para el logo */
+        margin-bottom: 1rem;
+    }
+
+    h2.fw-bold {
+        font-size: 28px;
+        font-weight: 600;
+        color: #1e3c72; /* Azul profesional */
+    }
+
+    h1.h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1e3c72;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control, .form-select {
+        height: 50px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 5px rgba(30, 60, 114, 0.3);
+            outline: none;
+        }
+
+    .text-danger {
+        font-size: 14px;
+    }
+
+    .alert-danger {
+        border-radius: 8px;
+        font-weight: 500;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .btn {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0.75rem;
+        border-radius: 8px;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-dark {
+        background: linear-gradient(90deg, #343a40, #495057);
+        border: none;
+        color: #fff;
+    }
+
+        .btn-dark:hover {
+            background: linear-gradient(90deg, #495057, #343a40);
+        }
+
+        .btn-dark:active {
+            transform: scale(0.98);
+        }
+
+    .btn-success {
+        background: linear-gradient(90deg, #28a745, #218838);
+        border: none;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(90deg, #218838, #28a745);
+        }
+
+        .btn-success:active {
+            transform: scale(0.98);
+        }
+
+    /* Estilos para las verificaciones de contraseña */
+    .password-requirements {
+        margin-top: 0.5rem;
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+        .password-requirements li {
+            list-style: none;
+            margin-bottom: 0.25rem;
+        }
+
+            .password-requirements li.valid {
+                color: #28a745;
+            }
+
+            .password-requirements li.invalid {
+                color: #dc3545;
+            }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model.HasError)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                            <p>@Model.Error</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <div class="text-center mb-4">
+                        <!-- Puedes reemplazar esto con tu logo -->
+                        <img src="/Imgs//logo.jpg" alt="Logo" class="logo">
+                        <h2 class="fw-bold">DigiBank</h2>
+                    </div>
+
+                    <form method="post" asp-controller="Admin" asp-action="@(editMode ? "Edit" : "Create")">
+                        <div class="mb-3 fw-normal text-center">
+                            <h1 class="h3">@ViewData["Title"]</h1>
+                        </div>
+
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+                        <div class="mb-4">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label asp-for="Name" class="form-label">Name:</label>
+                                    <input asp-for="Name" class="form-control" placeholder="Name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-6">
+                                    <label asp-for="LastName" class="form-label">Last Name:</label>
+                                    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label asp-for="Email" class="form-label">Email:</label>
+                                    <input type="email" asp-for="Email" class="form-control" placeholder="holamundo@email.com" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-6">
+                                    <label asp-for="IdentificationNumber" class="form-label">Identification:</label>
+                                    <input asp-for="IdentificationNumber" class="form-control" placeholder="###-#######-#" maxlength="13" />
+                                    <span asp-validation-for="IdentificationNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Username" class="form-label">Username:</label>
+                                <input type="text" asp-for="Username" class="form-control" placeholder="Username" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label">Password:</label>
+                                @if (editMode)
+                                {
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
+                                }
+                                else
+                                {
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="Password" id="password" required />
+                                }
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password:</label>
+                                @if (editMode)
+                                {
+                                    <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                                }
+                                else
+                                {
+                                    <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" required />
+                                }
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            @if (editMode)
+                            {
+                                <input type="hidden" asp-for="Role" id="user-role" />
+                            }
+                            else
+                            {
+                                <div class="mb-3">
+                                    <label asp-for="Role" class="form-label">Role:</label>
+                                    <select id="user-role" asp-for="Role" class="form-select">
+                                        <option value="0">Select a role</option>
+                                        <option value="@((int)Roles.Admin)">@(Roles.Admin.ToString())</option>
+                                        <option value="@((int)Roles.Client)">@(Roles.Client.ToString())</option>
+                                    </select>
+                                    <span asp-validation-for="Role" class="text-danger"></span>
+                                </div>
+                            }
+
+                            <div id="collapse-account-amount" class="collapse">
+                                <div class="mb-3 align-text-end">
+                                    <label asp-for="AccountAmount" class="form-label">Account Amount:</label>
+                                    <input asp-for="AccountAmount" class="form-control pe-3" placeholder="0.00" value=".00" />
+                                    <span asp-validation-for="AccountAmount" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <a class="btn btn-dark form-control" asp-controller="Admin" asp-action="Index">Back</a>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-success form-control">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var initialValue = $('#user-role').val();
+        if (initialValue === "@((int)Roles.Client)") {
+            $('#collapse-account-amount').collapse('show');
+        } else {
+            $('#collapse-account-amount').collapse('hide');
+        }
+
+        $('#user-role').change(function () {
+            var selectedValue = $(this).val();
+            if (selectedValue === "@((int)Roles.Client)") { // Change this condition based on your requirement
+                $('#collapse-account-amount').collapse('show');
+            } else {
+                $('#collapse-account-amount').collapse('hide');
+            }
+        });
+    });
+</script>

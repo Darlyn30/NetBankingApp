@@ -1,0 +1,198 @@
+﻿@using NetBanking.Core.Application.ViewModels.Transaction
+@model SaveTransactionViewModel
+@{
+    ViewData["Title"] = "Cash advance";
+}
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&amp;display=swap'>
+
+<style>
+    body {
+        background-color: #f5f7fa; /* Fondo claro */
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .container {
+        margin-top: 80px; /* Ajuste para evitar solapamiento */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px);
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: 600px;
+        padding: 2rem;
+        border-radius: 15px;
+        background: #fff; /* Fondo blanco para un look más limpio */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        color: #333;
+    }
+
+        .wrapper header {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            color: #1e3c72; /* Azul profesional */
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #1e3c72;
+            padding-bottom: 0.5rem;
+        }
+
+        .wrapper form {
+            margin: 0;
+        }
+
+    form .amount,
+    form .drop-list {
+        margin-bottom: 1.5rem;
+    }
+
+    form p {
+        font-size: 16px;
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    form input[type="number"] {
+        height: 50px;
+        font-size: 16px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        background: #fff;
+        color: #333;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        form input[type="number"]:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 5px rgba(30, 60, 114, 0.3);
+            outline: none;
+        }
+
+    .drop-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .drop-list .from,
+        .drop-list .to {
+            width: 45%;
+        }
+
+    .select-box {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        background: #fff;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .select-box select {
+            width: 100%;
+            font-size: 14px;
+            border: none;
+            background: transparent;
+            color: #333;
+            appearance: none;
+            padding: 0 0.5rem;
+        }
+
+            .select-box select:focus {
+                outline: none;
+            }
+
+    .drop-list .icon {
+        font-size: 24px;
+        color: #1e3c72;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+        .drop-list .icon:hover {
+            transform: rotate(90deg);
+        }
+
+    form button {
+        height: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(90deg, #1e3c72, #2a5298);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        width: 100%;
+    }
+
+        form button:hover {
+            background: linear-gradient(90deg, #2a5298, #1e3c72);
+        }
+
+        form button:active {
+            transform: scale(0.98);
+        }
+
+    .alert {
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+</style>
+
+@if (!String.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+        <p class="mb-0">@ViewBag.Error</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+    <div class="wrapper">
+        <header>Cash Advance</header>
+        <form method="post" asp-controller="Transfers" asp-action="CashAdvance">
+            <div class="amount">
+                <p>Enter Amount</p>
+                <input type="number" asp-for="Amount" value="0" required>
+            </div>
+            <div class="drop-list">
+                <div class="from">
+                    <p class="text-center">From</p>
+                    <div class="select-box">
+                        <select required asp-for="Origin" asp-items="@(new SelectList(ViewBag.ClientCreditCards, "Id", "Id"))" class="form-select">
+                            <option value="">Select Account</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="to">
+                    <p class="text-center">To</p>
+                    <div class="select-box">
+                        <select required asp-for="Destination" asp-items="@(new SelectList(ViewBag.ClientAccounts, "Id", "Id"))" class="form-select">
+                            <option value="">Select Account</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="exchange-rate"></div>
+            <button type="submit">Make Cash Advance</button>
+        </form>
+    </div>
+</div>

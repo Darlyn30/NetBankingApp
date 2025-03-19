@@ -1,0 +1,17 @@
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Infrastructure.Shared.deps.json
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Infrastructure.Shared.dll
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Infrastructure.Shared.pdb
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Core.Application.dll
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Core.Domain.dll
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Core.Application.pdb
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\bin\Debug\net9.0\NetBanking.Core.Domain.pdb
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.csproj.AssemblyReference.cache
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.AssemblyInfoInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.AssemblyInfo.cs
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.csproj.CoreCompileInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanki.1CE107E0.Up2Date
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.dll
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\refint\NetBanking.Infrastructure.Shared.dll
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\NetBanking.Infrastructure.Shared.pdb
+D:\programacion\C#\NetBanking\NetBanking.Infrastructure.Shared\obj\Debug\net9.0\ref\NetBanking.Infrastructure.Shared.dll

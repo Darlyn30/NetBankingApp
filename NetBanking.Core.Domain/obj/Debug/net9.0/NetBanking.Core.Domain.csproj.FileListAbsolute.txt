@@ -1,0 +1,11 @@
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\bin\Debug\net9.0\NetBanking.Core.Domain.deps.json
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\bin\Debug\net9.0\NetBanking.Core.Domain.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\bin\Debug\net9.0\NetBanking.Core.Domain.pdb
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.AssemblyInfoInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.AssemblyInfo.cs
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.csproj.CoreCompileInputs.cache
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\refint\NetBanking.Core.Domain.dll
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\NetBanking.Core.Domain.pdb
+D:\programacion\C#\NetBanking\NetBanking.Core.Domain\obj\Debug\net9.0\ref\NetBanking.Core.Domain.dll

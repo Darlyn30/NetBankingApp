@@ -1,0 +1,280 @@
+﻿@using NetBanking.Core.Application.Dtos.Account
+@using NetBanking.Core.Application.Dtos.Account.ResponsesCommon
+@using NetBanking.Core.Application.ViewModels.Product
+@model ProductViewModel;
+
+@{
+    ViewData["Title"] = "Manage Client Products";
+    AuthenticationResponse user = ViewBag.User;
+    Responses response = ViewBag.Response;
+}
+
+<div>
+    @if (response.HasError)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+            <p class="mb-0">@response.Error</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex justify-content-between mb-1">
+        <h1 class="h2 mb-3">@(ViewData["Title"] + $": {Model.Username}")</h1>
+
+        <div>
+
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary me-2">Back</a>
+
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-create-product">
+                Add new product
+            </button>
+
+            <!-- Modal Create-Product -->
+            <div class="modal fade" id="modal-create-product" tabindex="-1" aria-labelledby="modal-create-product-label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="savings-account-tab" data-bs-toggle="tab" href="#savings-account" role="tab" aria-controls="savings-account" aria-selected="true">Savings Account</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="credit-card-tab" data-bs-toggle="tab" href="#credit-card" role="tab" aria-controls="credit-card" aria-selected="false">Credit Card</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="loan-tab" data-bs-toggle="tab" href="#loan" role="tab" aria-controls="loan" aria-selected="false">Loan</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!-- Create SavingAccount -->
+                                <div class="tab-pane fade show active" id="savings-account" role="tabpanel" aria-labelledby="savings-account-tab">
+                                    <form method="post" asp-controller="SavingsAccount" asp-action="Create">
+
+                                        <input type="hidden" name="ClientId" value="@Model.ClientId" />
+                                        <input type="hidden" name="IsMainAccount" value="false" />
+
+                                        <div class="my-3">
+                                            <label class="form-label" for="sa-balance">Balance</label>
+                                            <input type="text" class="form-control" name="Balance" id="sa-balance" />
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-secondary">Create</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- Create CreditCard -->
+                                <div class="tab-pane fade" id="credit-card" role="tabpanel" aria-labelledby="credit-card-tab">
+                                    <form method="post" asp-controller="CreditCard" asp-action="Create">
+
+                                        <input type="hidden" name="ClientId" value="@Model.ClientId" />
+
+                                        <div class="my-3">
+                                            <label class="form-label" for="sa-limit">Limit</label>
+                                            <input type="text" class="form-control" name="Limit" id="cc-limit" />
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-secondary">Create</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- Create Loan -->
+                                <div class="tab-pane fade" id="loan" role="tabpanel" aria-labelledby="loan-tab">
+                                    <form method="post" asp-controller="Loan" asp-action="Create">
+
+                                        <input type="hidden" name="ClientId" value="@Model.ClientId" />
+
+                                        <div class="my-3">
+                                            <label class="form-label" for="loan-amount">Amount</label>
+                                            <input type="text" class="form-control" name="Amount" id="loan-amount" />
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-secondary">Create</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        @if ((Model.SavingsAccounts.Count == 0 && Model.CreditCards.Count == 0 && Model.Loans.Count == 0) || Model == null)
+        {
+            <h3 class="text-center">This user doesn't have any product</h3>
+        }
+        else
+        {
+            <section>
+                <!--Savings Account-->
+                <div class="card shadow rounded">
+                    <h2 class="card-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-savings-account" aria-expanded="false" aria-controls="collapse-savings-account">
+                            <i class="bi bi-piggy-bank"></i>
+                            Savings Accounts
+                        </button>
+                    </h2>
+                    <div id="collapse-savings-account" class="collapse">
+                        <div class="card-body">
+                            @if (!Model.SavingsAccounts.Any())
+                            {
+                                <h3 class="text-center">This user doesn't have any savings account.</h3>
+                            }
+                            else
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Balance</th>
+                                            <th>DateCreated</th>
+                                            <th class="text-center col-1">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var savingsAccount in Model.SavingsAccounts)
+                                        {
+                                            <tr>
+                                                <td>@savingsAccount.Id</td>
+                                                <td>@savingsAccount.Balance</td>
+                                                <td>@savingsAccount.DateCreated</td>
+                                                <td>
+                                                    @if (savingsAccount.IsMainAccount == false)
+                                                    {
+
+                                                        <form method="post" asp-controller="SavingsAccount" asp-action="Delete" asp-route-id="@savingsAccount.Id">
+                                                            <button type="submit" class="btn btn-danger" title="Delete"><i class="ti ti-trash"></i></button>
+                                                        </form>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!--Credit Card-->
+                <div class="card shadow rounded">
+                    <h2 class="card-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-credit-card" aria-expanded="false" aria-controls="collapse-credit-card">
+                            <i class="bi bi-credit-card me-2"></i>
+                            Credit Cards
+                        </button>
+                    </h2>
+                    <div id="collapse-credit-card" class="collapse">
+                        <div class="card-body">
+                            @if (!Model.CreditCards.Any())
+                            {
+                                <h3 class="text-center">This user doesn't have any credit card.</h3>
+                            }
+                            else
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Limit</th>
+                                            <th>Balance</th>
+                                            <th>Debt</th>
+                                            <th>DateCreated</th>
+                                            <th class="text-center col-1">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var creditCard in Model.CreditCards)
+                                        {
+                                            <tr>
+                                                <td>@creditCard.Id</td>
+                                                <td>@creditCard.Limit</td>
+                                                <td>@creditCard.Balance</td>
+                                                <td>@creditCard.Debit</td>
+                                                <td>@creditCard.DateCreated</td>
+                                                <td>
+                                                    @if (creditCard.Debit == 0)
+                                                    {
+                                                        <form method="post" asp-controller="CreditCard" asp-action="Delete" asp-route-id="@creditCard.Id">
+                                                            <button type="submit" class="btn btn-danger" title="Delete"><i class="ti ti-trash"></i></button>
+                                                        </form>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!--Loan-->
+                <div class="card shadow rounded">
+                    <h2 class="card-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-loans" aria-expanded="false" aria-controls="collapse-loans">
+                            <i class="bi bi-credit-card me-2"></i>
+                            Loans
+                        </button>
+                    </h2>
+                    <div id="collapse-loans" class="collapse">
+                        <div class="card-body">
+                            @if (!Model.Loans.Any())
+                            {
+                                <h3 class="text-center">This user doesn't have any loan.</h3>
+                            }
+                            else
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Amount</th>
+                                            <th>Debt</th>
+                                            <th>DateCreated</th>
+                                            <th class="text-center col-1">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var loan in Model.Loans)
+                                        {
+                                            <tr>
+                                                <td>@loan.Id</td>
+                                                <td>@loan.Amount</td>
+                                                <td>@loan.Balance</td>
+                                                <td>@loan.DateCreated</td>
+                                                <td>
+                                                    @if (loan.Balance == 0)
+                                                    {
+                                                        <form method="post" asp-controller="Loan" asp-action="Delete" asp-route-id="@loan.Id">
+                                                            <button type="submit" class="btn btn-danger" title="Delete"><i class="ti ti-trash"></i></button>
+                                                        </form>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>

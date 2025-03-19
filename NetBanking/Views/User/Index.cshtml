@@ -1,0 +1,37 @@
+﻿@using NetBanking.Core.Application.ViewModels.User
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container">
+    <div class="text-center mb-4">
+        <!-- Puedes reemplazar esto con tu logo -->
+        <img src="./Imgs/logo.jpg" alt="Logo" class="logo">
+        <h2 class="fw-bold">DigiBank</h2>
+    </div>
+
+    @if (Model.HasError)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+            <p class="mb-0">@Model.Error</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <form asp-controller="User" asp-action="Index" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input asp-for="UserName" class="form-control" id="username" placeholder="Type your username" required>
+            <span asp-validation-for="UserName"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input asp-for="Password" class="form-control" id="password" placeholder="Type your password" required>
+            <span asp-validation-for="Password"></span>
+        </div>
+
+        <button type="submit" class="btn btn-login w-100 text-white">Log In</button>
+    </form>
+</div>

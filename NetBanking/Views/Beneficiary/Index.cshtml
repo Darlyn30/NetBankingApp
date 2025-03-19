@@ -1,0 +1,237 @@
+﻿@using NetBanking.Core.Application.ViewModels.Beneficiary
+@model List<BeneficiaryViewModel>
+@{
+    ViewData["Title"] = "Beneficiaries";
+}
+
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp&amp;display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f5f7fa; /* Fondo claro */
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .container {
+        margin-top: 80px; /* Ajuste para evitar solapamiento */
+        padding: 0 15px;
+        min-height: calc(100vh - 80px);
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #1e3c72; /* Azul profesional */
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .searchbar {
+        margin: 1rem auto;
+        height: 60px;
+        background-color: #353b48;
+        border-radius: 30px;
+        padding: 10px;
+        max-width: 600px;
+        transition: box-shadow 0.3s ease;
+    }
+
+        .searchbar:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .search_input {
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        caret-color: transparent;
+        line-height: 40px;
+        transition: width 0.4s linear, padding 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input {
+        padding: 0 10px;
+        width: 450px;
+        caret-color: white;
+        transition: width 0.4s linear, padding 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon {
+        background: white;
+        color: #353b48;
+    }
+
+    .search_icon {
+        height: 40px;
+        width: 40px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar {
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .btn-outline-success {
+        height: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-outline-success:hover {
+            background: #28a745;
+            color: #fff;
+            border-color: #28a745;
+        }
+
+        .btn-outline-success:active {
+            transform: scale(0.98);
+        }
+
+    #validationSummary {
+        max-width: 600px;
+        margin: 0 auto 1rem;
+        border-radius: 8px;
+    }
+
+    .table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            color: #1e3c72;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .table tbody tr:hover {
+                background-color: #f1f3f5;
+            }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+        }
+
+    .btn-danger {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #dc3545, #c82333);
+        border: none;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(90deg, #c82333, #dc3545);
+        }
+
+        .btn-danger:active {
+            transform: scale(0.98);
+        }
+</style>
+
+
+@if (!String.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+        <p class="mb-0">@ViewBag.Error</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+    <h1 class="text-center">Beneficiaries</h1>
+
+    <div class="alert alert-danger text-center" id="validationSummary" style="display:none;">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <form method="post" asp-controller="Beneficiary" asp-action="AddBeneficiaryBySearch" class="d-flex" role="search">
+                    <input name="accountNumber" class="form-control me-2" required placeholder="Type an account number..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-success">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    @if (Model.Count == 0 || Model == null)
+    {
+        <h1 class="text-center mt-4" style="font-size: 24px; font-weight: 500; color: #6c757d;">
+            You have no beneficiaries registered.
+        </h1>
+    }
+    else
+    {
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Name
+                    </th>
+                    <th class="text-center">
+                        Last Name
+                    </th>
+                    <th class="text-center">
+                        Account Number
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BeneficiaryViewModel item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.BeneficiaryLastName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.BeneficiaryAccountNumber)
+                        </td>
+                        <td>
+                            <a asp-controller="Beneficiary" asp-action="DeleteBeneficiary" class="btn btn-danger" asp-route-accountNumber="@item.BeneficiaryAccountNumber">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

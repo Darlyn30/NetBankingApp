@@ -1,0 +1,228 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/*styles*/
+
+body {
+    background-color: #ccc;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn-login {
+    background-color: #007bff;
+    border: none;
+    padding: 0.75rem;
+}
+
+    .btn-login:hover {
+        background-color: #0056b3;
+    }
+
+
+.modal-header {
+    background-color: #1e3c72;
+    color: white;
+}
+
+.modal-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+/*navbar styles*/
+
+/* Estilos personalizados para el sidebar con estilo de pestañas */
+.left-sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: #fff; /* Fondo blanco como las pestañas */
+    border-right: 1px solid #dee2e6; /* Borde similar al de las pestañas */
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.brand-logo {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+    .brand-logo img {
+        width: 180px;
+        height: auto;
+    }
+
+.close-btn {
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+    .close-btn:hover {
+        color: #495057;
+    }
+
+.sidebar-nav {
+    padding: 1rem 0;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #dee2e6 transparent;
+}
+
+    .sidebar-nav::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-thumb {
+        background-color: #dee2e6;
+        border-radius: 3px;
+    }
+
+/* Estilo de las secciones (como encabezados) */
+.nav-small-cap {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0.5rem;
+}
+
+    .nav-small-cap i {
+        margin-right: 0.5rem;
+    }
+
+/* Estilo de los enlaces como pestañas */
+.sidebar-item {
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #6c757d; /* Color de pestaña no activa */
+    text-decoration: none;
+    border: 1px solid transparent; /* Borde inicial */
+    border-bottom: 1px solid #dee2e6; /* Borde inferior como en las pestañas */
+    background-color: #f8f9fa; /* Fondo claro como pestañas no activas */
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+    .sidebar-link:hover {
+        background-color: #e9ecef; /* Fondo al pasar el mouse */
+        color: #495057;
+        border-color: #dee2e6 #dee2e6 #fff; /* Bordes como pestaña activa */
+    }
+
+    .sidebar-link[aria-expanded="true"] {
+        color: #0d6efd; /* Color de pestaña activa */
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff; /* Bordes como pestaña activa */
+    }
+
+    .sidebar-link i {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+        width: 1.5rem;
+        text-align: center;
+    }
+
+    .sidebar-link span {
+        flex-grow: 1;
+    }
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .left-sidebar {
+        transform: translateX(-100%);
+        height: 100%;
+    }
+
+        .left-sidebar.active {
+            transform: translateX(0);
+        }
+
+    .body-wrapper {
+        margin-left: 0;
+    }
+}
+
+.body-wrapper {
+    margin-left: 250px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+    background-color: #f5f7fa;
+}
+
+.app-header {
+    background-color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+    .app-header .nav-item {
+        font-weight: 600;
+        color: #333;
+        padding: 0.5rem 1rem;
+    }

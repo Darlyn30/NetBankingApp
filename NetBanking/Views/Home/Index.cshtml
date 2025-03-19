@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Main Content -->
+<div class="container card-container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            <!-- Bank Card -->
+            <div class="bank-card">
+                <div class="card-chip"></div>
+                <div class="position-absolute top-0 end-0 p-2">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmf5rQoOt87qU25VDboIWw9KtxP0rfs6XSqw&s"
+                         alt="Visa Logo"
+                         style="width: 50px;">
+                </div>
+                <div class="card-number mt-4 pt-4">
+                    **** **** **** 1234
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <div>
+                        <small>Card Holder</small>
+                        <div>JOHN DOE</div>
+                    </div>
+                    <div>
+                        <small>Expires</small>
+                        <div>12/26</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card transactions-card">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Transactions</h5>
+                    <div class="transaction-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Supermarket</strong><br>
+                            <small class="text-muted">Mar 14, 2025</small>
+                        </div>
+                        <div class="amount-negative">-$75.30</div>
+                    </div>
+                    <div class="transaction-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Salary Deposit</strong><br>
+                            <small class="text-muted">Mar 13, 2025</small>
+                        </div>
+                        <div class="amount-positive">+$2,500.00</div>
+                    </div>
+                    <div class="transaction-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Online Shopping</strong><br>
+                            <small class="text-muted">Mar 12, 2025</small>
+                        </div>
+                        <div class="amount-negative">-$129.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

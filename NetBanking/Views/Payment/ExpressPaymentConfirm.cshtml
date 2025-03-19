@@ -1,0 +1,143 @@
+﻿@using NetBanking.Core.Application.ViewModels.Payment
+@model ExpressPaymentViewModel
+@{
+    ViewData["Title"] = "Complete Payment";
+}
+
+<style>
+    body {
+        background-color: #f5f7fa; /* Fondo claro */
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .container {
+        margin-top: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px);
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    .col-6 {
+        width: 100%;
+        max-width: 600px; /* Alineado con el ancho máximo de vistas anteriores */
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        background: #fff;
+    }
+
+    .card-header {
+        background: linear-gradient(90deg, #1e3c72, #2a5298); /* Gradiente azul */
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 1.5rem;
+        color: #fff;
+        text-align: center;
+    }
+
+        .card-header h4 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header h6 {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+        }
+
+    .card-body {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .btn {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-danger {
+        background: linear-gradient(90deg, #dc3545, #c82333);
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(90deg, #c82333, #dc3545);
+        }
+
+        .btn-danger:active {
+            transform: scale(0.98);
+        }
+
+    .btn-warning {
+        background: linear-gradient(90deg, #ffc107, #e0a800);
+        border: none;
+        color: #333;
+    }
+
+        .btn-warning:hover {
+            background: linear-gradient(90deg, #e0a800, #ffc107);
+            color: #333;
+        }
+
+        .btn-warning:active {
+            transform: scale(0.98);
+        }
+
+    .alert {
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+</style>
+
+
+@if (!String.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+        <p class="mb-0">@ViewBag.Error</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card shadow rounded">
+                <div class="card-header">
+                    <h4>Are you sure you would like to complete the payment to: @Model.ClientName @Model.ClientLastName</h4>
+                    <h6>Account Number: @Model.Destination</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-controller="Payment" asp-action="ExpressPaymentConfirmPost">
+                        <input type="hidden" asp-for="Amount" />
+                        <input type="hidden" asp-for="Origin" />
+                        <input type="hidden" asp-for="Destination" />
+                        <button type="submit" class="btn btn-danger me-2">Confirm Payment</button>
+                        <a asp-controller="Client" asp-action="Dashboard" class="btn btn-warning">Cancel Payment</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
